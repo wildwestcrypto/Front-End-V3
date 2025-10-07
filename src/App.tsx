@@ -515,7 +515,7 @@ export default function App() {
       <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors">
         {/* Header */}
         <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-emerald-500/15">
-          <div className="mx-auto max-w-screen-md px-4 py-3 flex items-center gap-3">
+          <div className="mx-auto max-w-screen-md px-4 py-2 flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg ring-1 ring-emerald-400/30 bg-gradient-to-br from-emerald-500/15 to-emerald-600/20 flex items-center justify-center">
               <TreePine className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />
             </div>
@@ -529,7 +529,7 @@ export default function App() {
         </header>
 
         {/* Main Content */}
-        <main className="mx-auto max-w-screen-md px-4 py-6 space-y-6">
+        <main className="mx-auto max-w-screen-md px-4 py-4 space-y-4">
           {/* Product Video */}
           <div className="rounded-3xl overflow-hidden ring-1 ring-emerald-500/20 shadow-xl bg-black aspect-video">
             <video
@@ -550,7 +550,7 @@ export default function App() {
           {/* Actions & ID Cards */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* ID Card */}
-            <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-5 space-y-4">
+            <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-4 space-y-3">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 <QrCode className="w-3 h-3" />
                 {t('identifier')}
@@ -604,7 +604,7 @@ export default function App() {
               </div>
             </div>
             {/* Actions Card */}
-            <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-5 space-y-4">
+            <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-4 space-y-3">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 {t('actions')}
               </h3>
