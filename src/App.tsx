@@ -1,23 +1,43 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  createContext,
-  useContext,
-} from 'react';
-import {
-  Share2,
-  TreePine,
-  MapPin,
-  QrCode,
-  Star,
-  Sun,
-  Moon,
-  CircleCheck,
-  CircleX,
-  TriangleAlert,
-  Clipboard,
-} from 'lucide-react';
+import { useState, useEffect, createContext, useContext } from 'react';
+import { Share2, TreePine, MapPin, QrCode, Sun, Moon, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
+
+// Add this style tag
+const styles = `
+  @keyframes pulse-three-times {
+    0%, 100% { 
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+  }
+
+  .pulse-three {
+    animation: pulse-three-times 1.5s ease-in-out 3;
+  }
+
+  @keyframes glow-three-times {
+    0%, 100% { 
+      opacity: 0;
+    }
+    50% { 
+      opacity: 0.3;
+    }
+  }
+
+  .glow-three {
+    animation: glow-three-times 1.5s ease-in-out 3;
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = styles;
+  document.head.appendChild(styleSheet);
+}
 
 // ============================================================================
 // MOCK DATA (from the original JS bundle)
@@ -222,8 +242,8 @@ const useTheme = () => {
 
   useEffect(() => {
     const root = document.documentElement;
-
-    const applyTheme = (mode) => {
+    
+    const applyTheme = (mode: string) => {
       if (mode === 'dark') {
         root.classList.add('dark');
       } else {
@@ -234,33 +254,28 @@ const useTheme = () => {
     if (theme === 'auto') {
       const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(isDark ? 'dark' : 'light');
-
-      const handler = (e) => applyTheme(e.matches ? 'dark' : 'light');
-      window
-        .matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener('change', handler);
-      return () =>
-        window
-          .matchMedia('(prefers-color-scheme: dark)')
-          .removeEventListener('change', handler);
+      
+      const handler = (e: MediaQueryListEvent) => applyTheme(e.matches ? 'dark' : 'light');
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handler);
+      return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handler);
     } else {
       applyTheme(theme);
     }
   }, [theme]);
 
-  const changeTheme = (newTheme) => {
+  const changeTheme = (newTheme: string) => {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   };
 
-  return [theme, changeTheme];
+  return [theme, changeTheme] as const;
 };
 
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
 
-const formatDate = (dateStr) => {
+const formatDate = (dateStr: string): string => {
   try {
     return dateStr ? new Date(dateStr).toLocaleString() : '—';
   } catch {
@@ -268,15 +283,11 @@ const formatDate = (dateStr) => {
   }
 };
 
-const translateKey = (key, translations, lang) => {
+const translateKey = (key: string, translations: any, lang: string): string => {
   if (!key) return '';
   if (key.startsWith('i18n:')) {
     const translationKey = key.slice(5);
-    return (
-      translations[lang]?.[translationKey] ||
-      translations.en?.[translationKey] ||
-      translationKey
-    );
+    return translations[lang]?.[translationKey] || translations.en?.[translationKey] || translationKey;
   }
   return key;
 };
@@ -540,7 +551,7 @@ export default function App() {
   );
   const [productData, setProductData] = useState(null);
 
-  const t = (key, vars = {}) => {
+  const t = (key: string, vars: Record<string, any> = {}): string => {
     let text = TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en?.[key] || key;
     Object.entries(vars).forEach(([k, v]) => {
       text = text.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
@@ -610,51 +621,6 @@ export default function App() {
             </video>
           </div>
 
-          {/* Product Details Card */}
-          <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-7 space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="shrink-0 w-16 h-16 rounded-xl border-2 border-emerald-500/80 bg-white dark:bg-slate-950 flex items-center justify-center text-2xl font-bold text-emerald-600 dark:text-emerald-400">
-                MJ
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold tracking-tight">
-                  {translateText(productData.product.name)}
-                </h2>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                  {translateText(productData.product.desc)}
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3 text-xs">
-              <div className="flex flex-col rounded-xl border border-emerald-200/60 dark:border-emerald-400/10 p-3 bg-white/80 dark:bg-white/5">
-                <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  {t('lot')}
-                </span>
-                <span className="text-sm font-semibold">{productData.lot}</span>
-              </div>
-              <div className="flex flex-col rounded-xl border border-emerald-200/60 dark:border-emerald-400/10 p-3 bg-white/80 dark:bg-white/5">
-                <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  {t('expiry')}
-                </span>
-                <span className="text-sm font-semibold">{productData.exp}</span>
-              </div>
-              <div className="flex flex-col rounded-xl border border-emerald-200/60 dark:border-emerald-400/10 p-3 bg-white/80 dark:bg-white/5">
-                <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  {t('updated')}
-                </span>
-                <span className="text-sm font-semibold">
-                  {formatDate(productData.updated).split(',')[0]}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-300">
-              <MapPin className="w-4 h-4" />
-              {translateText(productData.origin)}
-            </div>
-          </div>
-
           {/* Actions & ID Cards */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* ID Card */}
@@ -697,18 +663,18 @@ export default function App() {
                   </div>
 
                   <div className={`flex flex-col items-center justify-center px-3 py-2 rounded-lg border ${(productData.scanCount || 1) === 1
-                      ? 'bg-white/60 dark:bg-slate-800/60 border-emerald-500/20'
-                      : 'bg-amber-50/60 dark:bg-amber-900/20 border-amber-500/30'
+                    ? 'bg-white/60 dark:bg-slate-800/60 border-emerald-500/20'
+                    : 'bg-amber-50/60 dark:bg-amber-900/20 border-amber-500/30'
                     }`}>
                     <div className={`text-xs font-semibold uppercase tracking-wide ${(productData.scanCount || 1) === 1
-                        ? 'text-slate-500 dark:text-slate-400'
-                        : 'text-amber-700 dark:text-amber-300'
+                      ? 'text-slate-500 dark:text-slate-400'
+                      : 'text-amber-700 dark:text-amber-300'
                       }`}>
                       Scans
                     </div>
                     <div className={`text-2xl font-bold ${(productData.scanCount || 1) === 1
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-amber-600 dark:text-amber-400'
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : 'text-amber-600 dark:text-amber-400'
                       }`}>
                       {productData.scanCount || 1}
                     </div>
@@ -721,11 +687,26 @@ export default function App() {
               <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 {t('actions')}
               </h3>
+
+              {/* Unlock 3x Impact Button - MOVED TO TOP */}
+              <div className="space-y-2 relative">
+                {/* Animated glow background - 3 times only */}
+
+                <button className="relative w-full px-4 py-3.5 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-amber-500 text-white font-bold flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl transition-all hover:scale-105 pulse-three">
+                  <span className="text-xl">⭐</span>
+                  <span className="text-base">Unlock 3x Impact</span>
+                </button>
+
+                <p className="relative text-xs text-center text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                  Create your account — and begin your journey to zero carbon. Track your progress and see your impact grow.
+                </p>
+              </div>
+
+              {/* Share Button - MOVED BELOW */}
               <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2 shadow hover:shadow-lg transition-shadow">
                 <Share2 className="w-4 h-4" />
                 {t('share')}
               </button>
-              <RatingStars />
             </div>
           </div>
 
