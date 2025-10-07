@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { Share2, TreePine, QrCode, Sun, Moon, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
+import { Share2, TreePine, QrCode, Sun, Moon } from 'lucide-react';
 
 // Type definitions
 interface Product {
