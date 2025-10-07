@@ -36,6 +36,7 @@ const MOCK_PRODUCTS = {
     exp: '2026-03-15',
     updated: '2025-09-25T09:05:00Z',
     origin: 'i18n:origin_mjays_bakery_us',
+    scanCount: 1,
     carbon: '200 g CO₂ per box.',
     carbon_produced_g: 200,
     carbon_offset_g: 400,
@@ -205,7 +206,7 @@ const TRANSLATIONS = {
 const LanguageContext = createContext({
   lang: 'en',
   t: (key) => key,
-  setLang: () => {},
+  setLang: () => { },
 });
 
 const useTranslation = () => useContext(LanguageContext);
@@ -289,23 +290,23 @@ const VerificationBadge = ({ ok }) => {
 
   if (ok === true) {
     return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-600/15 text-emerald-700 dark:text-emerald-300 border border-emerald-600/30 dark:border-emerald-400/30">
-        <CircleCheck className="w-3 h-3" />
+      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-emerald-600/15 text-emerald-700 dark:text-emerald-300 border border-emerald-600/30 dark:border-emerald-400/30">
+        <CircleCheck className="w-4 h-4" />
         {t('verification_pill')}
       </span>
     );
   } else if (ok === false) {
     return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-600/15 text-rose-700 dark:text-rose-300 border border-rose-600/30">
-        <CircleX className="w-3 h-3" />
+      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-rose-600/15 text-rose-700 dark:text-rose-300 border border-rose-600/30">
+        <CircleX className="w-4 h-4" />
         {t('not_verified')}
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-600/30">
-      <TriangleAlert className="w-3 h-3" />
+    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-600/30">
+      <TriangleAlert className="w-4 h-4" />
       Unknown
     </span>
   );
@@ -344,11 +345,10 @@ const ThemeSwitcher = () => {
         <button
           key={value}
           onClick={() => setTheme(value)}
-          className={`relative w-8 h-8 flex items-center justify-center rounded-full transition-colors ${
-            theme === value
-              ? 'text-emerald-800 dark:text-emerald-100'
-              : 'text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-300'
-          }`}
+          className={`relative w-8 h-8 flex items-center justify-center rounded-full transition-colors ${theme === value
+            ? 'text-emerald-800 dark:text-emerald-100'
+            : 'text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-300'
+            }`}
           title={label}
         >
           {theme === value && (
@@ -376,11 +376,10 @@ const LanguageSwitcher = () => {
           <button
             key={code}
             onClick={() => setLang(code)}
-            className={`relative px-3 h-7 flex items-center justify-center rounded-full text-xs font-semibold transition-colors ${
-              lang === code
-                ? 'text-emerald-800 dark:text-emerald-100'
-                : 'text-slate-500 dark:text-slate-400 hover:text-emerald-600'
-            }`}
+            className={`relative px-3 h-7 flex items-center justify-center rounded-full text-xs font-semibold transition-colors ${lang === code
+              ? 'text-emerald-800 dark:text-emerald-100'
+              : 'text-slate-500 dark:text-slate-400 hover:text-emerald-600'
+              }`}
           >
             {lang === code && (
               <span className="absolute inset-0 rounded-full bg-emerald-500/20 dark:bg-emerald-400/25 ring-1 ring-emerald-500/40" />
@@ -401,7 +400,7 @@ const CopyButton = ({ text, label }) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Copy failed:', err);
     }
@@ -411,16 +410,25 @@ const CopyButton = ({ text, label }) => {
     <div className="relative">
       <button
         onClick={handleCopy}
-        className="w-9 h-9 flex items-center justify-center rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-200 border border-emerald-500/30 transition-colors"
+        className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 transition-all"
         aria-label={label || t('copy_id')}
       >
-        <Clipboard className="w-4 h-4" />
+        {copied ? (
+          <>
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            {t('copied_short')}
+          </>
+        ) : (
+          <>
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            {t('copy_id')}
+          </>
+        )}
       </button>
-      {copied && (
-        <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-xs font-medium px-2 py-1 rounded-md bg-emerald-600 text-white shadow whitespace-nowrap">
-          {t('copied_short')}
-        </span>
-      )}
     </div>
   );
 };
@@ -509,11 +517,10 @@ const RatingStars = () => {
               className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
             >
               <Star
-                className={`w-5 h-5 ${
-                  filled
-                    ? 'fill-amber-400/70 stroke-amber-400'
-                    : 'stroke-slate-400 dark:stroke-slate-600'
-                }`}
+                className={`w-5 h-5 ${filled
+                  ? 'fill-amber-400/70 stroke-amber-400'
+                  : 'stroke-slate-400 dark:stroke-slate-600'
+                  }`}
               />
             </button>
           );
@@ -668,12 +675,57 @@ export default function App() {
                 <QrCode className="w-3 h-3" />
                 {t('identifier')}
               </div>
-              <div className="text-sm font-mono break-all">
+
+              <div className="text-sm font-mono break-all text-slate-800 dark:text-slate-200">
                 {productData.uuid}
               </div>
-              <div className="flex items-center gap-3">
+
+              <div className="flex items-center gap-2">
                 <VerificationBadge ok={productData.ok} />
                 <CopyButton text={productData.uuid} />
+              </div>
+
+              {/* ===== NEW: VERIFICATION CONFIRMATION BOX ===== */}
+              <div className="rounded-xl bg-emerald-50/80 dark:bg-emerald-900/20 border border-emerald-500/30 p-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-start gap-2">
+                      <span className="text-lg">{(productData.scanCount || 1) === 1 ? '🎉' : '✅'}</span>
+                      <div>
+                        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+                          {(productData.scanCount || 1) === 1
+                            ? 'Congratulations, you have just verified this credit'
+                            : `This credit was already verified at ${new Date().toLocaleString()}`
+                          }
+                        </p>
+                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                          {(productData.scanCount || 1) === 1
+                            ? new Date().toLocaleString()
+                            : `Scanned ${productData.scanCount} times`
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`flex flex-col items-center justify-center px-3 py-2 rounded-lg border ${(productData.scanCount || 1) === 1
+                      ? 'bg-white/60 dark:bg-slate-800/60 border-emerald-500/20'
+                      : 'bg-amber-50/60 dark:bg-amber-900/20 border-amber-500/30'
+                    }`}>
+                    <div className={`text-xs font-semibold uppercase tracking-wide ${(productData.scanCount || 1) === 1
+                        ? 'text-slate-500 dark:text-slate-400'
+                        : 'text-amber-700 dark:text-amber-300'
+                      }`}>
+                      Scans
+                    </div>
+                    <div className={`text-2xl font-bold ${(productData.scanCount || 1) === 1
+                        ? 'text-emerald-600 dark:text-emerald-400'
+                        : 'text-amber-600 dark:text-amber-400'
+                      }`}>
+                      {productData.scanCount || 1}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
