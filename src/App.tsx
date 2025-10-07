@@ -87,14 +87,14 @@ if (typeof document !== 'undefined') {
 // ============================================================================
 
 const MOCK_PRODUCTS: { [key: string]: ProductData } = {
-  '550e8400-e29b-41d4-a716-446655440000': {
+  '550e8400-e29b-41d4-a716': {
     ok: true,
     product: {
       name: 'i18n:product_demo_name',
       desc: 'i18n:product_demo_desc',
       image: 'brownies-landscape.png',
     },
-    uuid: '550e8400-e29b-41d4-a716-446655440000',
+    uuid: '550e8400-e29b-41d4-a716',
     lot: 'BATCH-BRW-2409',
     exp: '2026-03-15',
     updated: '2025-09-25T09:05:00Z',
@@ -626,11 +626,6 @@ export default function App() {
 
               <div className="text-sm font-mono break-all text-slate-800 dark:text-slate-200">
                 {productData.uuid}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <VerificationBadge ok={productData.ok} />
-                <CopyButton text={productData.uuid} />
               </div>
 
               {/* ===== NEW: VERIFICATION CONFIRMATION BOX ===== */}
