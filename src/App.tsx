@@ -267,10 +267,10 @@ const TRANSLATIONS: Translations = {
 // LANGUAGE CONTEXT
 // ============================================================================
 
-const LanguageContext = createContext<{ lang: string; t: (key: string, vars?: any) => string; setLang: (lang: string) => void }>({ 
-  lang: 'en', 
-  t: (key: string) => key, 
-  setLang: () => {} 
+const LanguageContext = createContext<{ lang: string; t: (key: string, vars?: any) => string; setLang: (lang: string) => void }>({
+  lang: 'en',
+  t: (key: string) => key,
+  setLang: () => { }
 });
 
 const useTranslation = () => useContext(LanguageContext);
@@ -286,7 +286,7 @@ const useTheme = () => {
 
   useEffect(() => {
     const root = document.documentElement;
-    
+
     const applyTheme = (mode: string) => {
       if (mode === 'dark') {
         root.classList.add('dark');
@@ -298,7 +298,7 @@ const useTheme = () => {
     if (theme === 'auto') {
       const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(isDark ? 'dark' : 'light');
-      
+
       const handler = (e: MediaQueryListEvent) => applyTheme(e.matches ? 'dark' : 'light');
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handler);
       return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handler);
@@ -318,15 +318,6 @@ const useTheme = () => {
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const formatDate = (dateStr: string): string => {
-  try {
-    return dateStr ? new Date(dateStr).toLocaleString() : '—';
-  } catch {
-    return dateStr || '—';
-  }
-};
 
 const translateKey = (key: string, translations: any, lang: string): string => {
   if (!key) return '';
@@ -725,7 +716,7 @@ export default function App() {
             </div>
 
             <div className="flex justify-center">
-              <CarbonGauge produced={produced} offset={offset} net={net} />
+              <CarbonGauge produced={produced} offset={offset} />
             </div>
 
             <div className="rounded-xl ring-1 ring-emerald-500/30 bg-emerald-50/85 dark:bg-emerald-900/25 px-6 py-4 space-y-2">
