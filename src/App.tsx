@@ -332,33 +332,6 @@ const translateKey = (key: string, translations: any, lang: string): string => {
 // COMPONENTS
 // ============================================================================
 
-const VerificationBadge = ({ ok }: { ok: boolean }) => {
-  const { t } = useTranslation();
-
-  if (ok === true) {
-    return (
-      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-emerald-600/15 text-emerald-700 dark:text-emerald-300 border border-emerald-600/30 dark:border-emerald-400/30">
-        <CircleCheck className="w-4 h-4" />
-        {t('verification_pill')}
-      </span>
-    );
-  } else if (ok === false) {
-    return (
-      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-rose-600/15 text-rose-700 dark:text-rose-300 border border-rose-600/30">
-        <CircleX className="w-4 h-4" />
-        {t('not_verified')}
-      </span>
-    );
-  }
-
-  return (
-    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-600/30">
-      <TriangleAlert className="w-4 h-4" />
-      Unknown
-    </span>
-  );
-};
-
 const ThemeSwitcher = () => {
   const { t } = useTranslation();
   const [theme, setTheme] = useTheme();
@@ -435,47 +408,6 @@ const LanguageSwitcher = () => {
           </button>
         ))}
       </div>
-    </div>
-  );
-};
-
-const CopyButton = ({ text, label }: { text: string; label?: string }) => {
-  const { t } = useTranslation();
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Copy failed:', err);
-    }
-  };
-
-  return (
-    <div className="relative">
-      <button
-        onClick={handleCopy}
-        className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 transition-all"
-        aria-label={label || t('copy_id')}
-      >
-        {copied ? (
-          <>
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            {t('copied_short')}
-          </>
-        ) : (
-          <>
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-            {t('copy_id')}
-          </>
-        )}
-      </button>
     </div>
   );
 };
