@@ -1,6 +1,49 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { Share2, TreePine, MapPin, QrCode, Sun, Moon, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
 
+// Type definitions
+interface Product {
+  name: string;
+  desc: string;
+  image: string;
+}
+
+interface Event {
+  ts: string;
+  type: string;
+  where: string;
+  who: string;
+  tags?: string[];
+  status: string;
+  blockchainUrl?: string;
+}
+
+interface ProductData {
+  ok: boolean;
+  product: Product;
+  uuid: string;
+  lot: string;
+  exp: string;
+  updated: string;
+  origin: string;
+  scanCount: number;
+  carbon: string;
+  carbon_produced_g: number;
+  carbon_offset_g: number;
+  carbon_method: string;
+  carbon_provider: string;
+  carbon_audit_ts: string;
+  carbon_claim_ref: string;
+  compensation_status: string;
+  events: Event[];
+}
+
+interface Translations {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
 // Add this style tag
 const styles = `
   @keyframes pulse-three-times {
@@ -43,7 +86,7 @@ if (typeof document !== 'undefined') {
 // MOCK DATA (from the original JS bundle)
 // ============================================================================
 
-const MOCK_PRODUCTS = {
+const MOCK_PRODUCTS: { [key: string]: ProductData } = {
   '550e8400-e29b-41d4-a716-446655440000': {
     ok: true,
     product: {
@@ -112,7 +155,7 @@ const MOCK_PRODUCTS = {
 // TRANSLATIONS
 // ============================================================================
 
-const TRANSLATIONS = {
+const TRANSLATIONS: Translations = {
   en: {
     tagline: 'Verification & green traceability',
     verified: 'Verified',
@@ -223,10 +266,10 @@ const TRANSLATIONS = {
 // LANGUAGE CONTEXT
 // ============================================================================
 
-const LanguageContext = createContext({
-  lang: 'en',
-  t: (key) => key,
-  setLang: () => { },
+const LanguageContext = createContext<{ lang: string; t: (key: string, vars?: any) => string; setLang: (lang: string) => void }>({ 
+  lang: 'en', 
+  t: (key: string) => key, 
+  setLang: () => {} 
 });
 
 const useTranslation = () => useContext(LanguageContext);
@@ -296,7 +339,7 @@ const translateKey = (key: string, translations: any, lang: string): string => {
 // COMPONENTS
 // ============================================================================
 
-const VerificationBadge = ({ ok }) => {
+const VerificationBadge = ({ ok }: { ok: boolean }) => {
   const { t } = useTranslation();
 
   if (ok === true) {
@@ -403,7 +446,7 @@ const LanguageSwitcher = () => {
   );
 };
 
-const CopyButton = ({ text, label }) => {
+const CopyButton = ({ text, label }: { text: string; label?: string }) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
@@ -444,7 +487,7 @@ const CopyButton = ({ text, label }) => {
   );
 };
 
-const CarbonGauge = ({ produced, offset, net }) => {
+const CarbonGauge = ({ produced, offset, net }: { produced: number; offset: number; net: number }) => {
   const { t } = useTranslation();
   const pct =
     produced && offset ? Math.min(100, (offset / produced) * 100) : 100;
@@ -549,9 +592,9 @@ export default function App() {
   const [lang, setLang] = useState(
     () => localStorage.getItem('ft_lang') || 'en'
   );
-  const [productData, setProductData] = useState(null);
+  const [productData, setProductData] = useState<ProductData | null>(null);
 
-  const t = (key: string, vars: Record<string, any> = {}): string => {
+  const t = (key: string, vars: { [key: string]: string | number } = {}): string => {
     let text = TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en?.[key] || key;
     Object.entries(vars).forEach(([k, v]) => {
       text = text.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
@@ -570,7 +613,7 @@ export default function App() {
     setProductData({ ...MOCK_PRODUCTS[uuid], uuid });
   }, []);
 
-  const translateText = (text) => translateKey(text, TRANSLATIONS, lang);
+  const translateText = (text: string): string => translateKey(text, TRANSLATIONS, lang);
 
   if (!productData) {
     return (
