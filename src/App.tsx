@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { Share2, TreePine, MapPin, QrCode, Sun, Moon, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
+import { Share2, TreePine, QrCode, Sun, Moon, CircleCheck, CircleX, TriangleAlert } from 'lucide-react';
 
 // Type definitions
 interface Product {
@@ -141,6 +141,7 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
           'https://mempool.space/tx/6b89871fd4ac97727fcb4c0fa2f919d9770f4fb1de3f9f152f8b91418c58442f',
       },
       {
+        ts: "2025-09-15T10:15:00Z",  // ADD THIS LINE
         type: 'Final Ledger with Complete Fractionalization',
         where: 'Bitcoin Blockchain',
         who: 'Fractionalization System',
@@ -318,6 +319,7 @@ const useTheme = () => {
 // UTILITY FUNCTIONS
 // ============================================================================
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const formatDate = (dateStr: string): string => {
   try {
     return dateStr ? new Date(dateStr).toLocaleString() : '—';
@@ -487,7 +489,7 @@ const CopyButton = ({ text, label }: { text: string; label?: string }) => {
   );
 };
 
-const CarbonGauge = ({ produced, offset, net }: { produced: number; offset: number; net: number }) => {
+const CarbonGauge = ({ produced, offset }: { produced: number; offset: number }) => {
   const { t } = useTranslation();
   const pct =
     produced && offset ? Math.min(100, (offset / produced) * 100) : 100;
@@ -542,48 +544,6 @@ const CarbonGauge = ({ produced, offset, net }: { produced: number; offset: numb
   );
 };
 
-const RatingStars = () => {
-  const { t } = useTranslation();
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(null);
-
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-          {rating ? t('thanks_rating') : t('rate_product')}
-        </span>
-        {rating > 0 && (
-          <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-200 border border-emerald-500/30">
-            ★ {rating}/5
-          </span>
-        )}
-      </div>
-      <div className="flex items-center gap-1">
-        {[1, 2, 3, 4, 5].map((star) => {
-          const filled = hover !== null ? star <= hover : star <= rating;
-          return (
-            <button
-              key={star}
-              onMouseEnter={() => setHover(star)}
-              onMouseLeave={() => setHover(null)}
-              onClick={() => setRating(star)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
-            >
-              <Star
-                className={`w-5 h-5 ${filled
-                  ? 'fill-amber-400/70 stroke-amber-400'
-                  : 'stroke-slate-400 dark:stroke-slate-600'
-                  }`}
-              />
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
 // ============================================================================
 // MAIN APP
 // ============================================================================
@@ -610,7 +570,7 @@ export default function App() {
   useEffect(() => {
     // Simulate loading the first product
     const uuid = Object.keys(MOCK_PRODUCTS)[0];
-    setProductData({ ...MOCK_PRODUCTS[uuid], uuid });
+    setProductData({ ...MOCK_PRODUCTS[uuid], uuid } as ProductData);
   }, []);
 
   const translateText = (text: string): string => translateKey(text, TRANSLATIONS, lang);
