@@ -529,7 +529,7 @@ export default function App() {
         </header>
 
         {/* Main Content */}
-        <main className="mx-auto max-w-screen-md px-4 pb-20 pt-6 space-y-6">
+        <main className="mx-auto max-w-screen-md px-4 py-6 space-y-6">
           {/* Product Video */}
           <div className="rounded-3xl overflow-hidden ring-1 ring-emerald-500/20 shadow-xl bg-black aspect-video">
             <video
@@ -785,7 +785,7 @@ export default function App() {
         </main>
 
         {/* Footer */}
-        <footer className="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-t border-emerald-500/10">
+        <footer className="bg-white/80 dark:bg-slate-950/80 backdrop-blur border-t border-emerald-500/10">
           <div className="mx-auto max-w-screen-md px-4 py-3 text-xs flex flex-wrap items-center gap-4 justify-between text-slate-500 dark:text-slate-400">
             <span>© {new Date().getFullYear()} The Evergreen Exchange</span>
           </div>
