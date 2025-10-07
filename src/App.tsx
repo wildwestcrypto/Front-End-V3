@@ -281,7 +281,7 @@ const useTranslation = () => useContext(LanguageContext);
 
 const useTheme = () => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'auto';
+    return localStorage.getItem('theme') || 'dark';
   });
 
   useEffect(() => {
@@ -569,7 +569,7 @@ export default function App() {
                       <div>
                         <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                           {(productData.scanCount || 1) === 1
-                            ? 'Congratulations, you have just verified this credit'
+                            ? 'Congratulations, carbon claimed!'
                             : `This credit was already verified at ${new Date().toLocaleString()}`
                           }
                         </p>
