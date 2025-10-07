@@ -657,18 +657,6 @@ export default function App() {
 
           {/* Actions & ID Cards */}
           <div className="grid gap-6 md:grid-cols-2">
-            {/* Actions Card */}
-            <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-5 space-y-4">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                {t('actions')}
-              </h3>
-              <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2 shadow hover:shadow-lg transition-shadow">
-                <Share2 className="w-4 h-4" />
-                {t('share')}
-              </button>
-              <RatingStars />
-            </div>
-
             {/* ID Card */}
             <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-5 space-y-4">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
@@ -727,6 +715,17 @@ export default function App() {
                   </div>
                 </div>
               </div>
+            </div>
+            {/* Actions Card */}
+            <div className="rounded-3xl border border-emerald-500/20 bg-white/90 dark:bg-white/5 backdrop-blur p-5 space-y-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                {t('actions')}
+              </h3>
+              <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold flex items-center justify-center gap-2 shadow hover:shadow-lg transition-shadow">
+                <Share2 className="w-4 h-4" />
+                {t('share')}
+              </button>
+              <RatingStars />
             </div>
           </div>
 
