@@ -536,10 +536,10 @@ export default function App() {
               className="w-full h-full object-cover"
               controls
               playsInline
-              poster="https://raw.githubusercontent.com/wildwestcrypto/Front-End-Demo/main/public/sara5.png"
+              poster="https://raw.githubusercontent.com/wildwestcrypto/Front-End-V3/main/public/sarasouth3.jpg"
             >
               <source
-                src="https://raw.githubusercontent.com/wildwestcrypto/Front-End-Demo/main/public/sara5.mp4"
+                src="https://raw.githubusercontent.com/wildwestcrypto/Front-End-V3/main/public/sarasouth3.mp4"
                 type="video/mp4"
               />
               <source src="/path-to-your-video.webm" type="video/webm" />
