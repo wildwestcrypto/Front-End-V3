@@ -506,18 +506,7 @@ export default function App() {
     }
     return text;
   };
-
-  // Copy ID to clipboard
-  const handleCopyId = async () => {
-    try {
-      await navigator.clipboard.writeText(productData.uuid);
-      setCopiedId(true);
-      setTimeout(() => setCopiedId(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
-  };
-
+  
   if (!productData || !productData.ok) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream-200 dark:bg-slate-900">
