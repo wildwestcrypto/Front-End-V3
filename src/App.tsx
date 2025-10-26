@@ -488,7 +488,6 @@ function ThemeToggle() {
 
 export default function App() {
   const [language, setLanguage] = useState<Language>('en');
-  const [copiedId, setCopiedId] = useState(false);
 
   const uuid = '550e8400-e29b-41d4-a716';
   const productData = MOCK_PRODUCTS[uuid];
@@ -506,7 +505,7 @@ export default function App() {
     }
     return text;
   };
-  
+
   if (!productData || !productData.ok) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream-200 dark:bg-slate-900">
