@@ -1,83 +1,98 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Evergreen Exchange & Mjay's Bakery</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              // Evergreen Exchange Colors
-              evergreen: {
-                700: '#2F5233',
-                800: '#1E3A21',
-                900: '#0F1D10',
-              },
-              olive: {
-                100: '#E8ECDE',
-                200: '#D4DBBD',
-                300: '#C1CA9D',
-                400: '#AFC17F',
-                500: '#9DB862',
-                600: '#7A9348',
-                700: '#5A6D35',
-                800: '#3D4923',
-                900: '#212713',
-              },
-              money: {
-                300: '#A8D08D',
-                400: '#8BC572',
-                500: '#6FB858',
-                600: '#5A9647',
-                700: '#447136',
-                800: '#2F4D25',
-                900: '#1C2D16',
-              },
-              gold: {
-                400: '#E8C547',
-                500: '#D4AF37',
-                600: '#B8942A',
-                700: '#9C7A1E',
-                800: '#705814',
-                900: '#473609',
-              },
-              cream: {
-                100: '#F5F2E2',
-                200: '#EBE6C5',
-                300: '#E1DAA9',
-              },
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Evergreen Exchange & Mjay's Bakery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // Evergreen Exchange Colors
+            evergreen: {
+              700: '#2F5233',
+              800: '#1E3A21',
+              900: '#0F1D10',
             },
-            boxShadow: {
-              'evergreen': '0 4px 6px -1px rgba(47, 82, 51, 0.1), 0 2px 4px -1px rgba(47, 82, 51, 0.06)',
-              'evergreen-lg': '0 10px 15px -3px rgba(47, 82, 51, 0.1), 0 4px 6px -2px rgba(47, 82, 51, 0.05)',
-              'evergreen-xl': '0 20px 25px -5px rgba(47, 82, 51, 0.1), 0 10px 10px -5px rgba(47, 82, 51, 0.04)',
-            }
+            olive: {
+              100: '#E8ECDE',
+              200: '#D4DBBD',
+              300: '#C1CA9D',
+              400: '#AFC17F',
+              500: '#9DB862',
+              600: '#7A9348',
+              700: '#5A6D35',
+              800: '#3D4923',
+              900: '#212713',
+            },
+            money: {
+              300: '#A8D08D',
+              400: '#8BC572',
+              500: '#6FB858',
+              600: '#5A9647',
+              700: '#447136',
+              800: '#2F4D25',
+              900: '#1C2D16',
+            },
+            gold: {
+              400: '#F4D03F',
+              500: '#E8C547',
+              600: '#D4AF37',
+              700: '#B8942A',
+              800: '#9C7A1E',
+              900: '#705814',
+            },
+            cream: {
+              100: '#F5F2E2',
+              200: '#EBE6C5',
+              300: '#E1DAA9',
+            },
+          },
+          boxShadow: {
+            'evergreen': '0 4px 6px -1px rgba(47, 82, 51, 0.1), 0 2px 4px -1px rgba(47, 82, 51, 0.06)',
+            'evergreen-lg': '0 10px 15px -3px rgba(47, 82, 51, 0.1), 0 4px 6px -2px rgba(47, 82, 51, 0.05)',
+            'evergreen-xl': '0 20px 25px -5px rgba(47, 82, 51, 0.1), 0 10px 10px -5px rgba(47, 82, 51, 0.04)',
           }
         }
       }
-    </script>
-    <style>
-      @keyframes spin {
-        to { transform: rotate(360deg); }
+    }
+  </script>
+  <style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
-      .animate-spin {
-        animation: spin 1s linear infinite;
+    }
+
+    .animate-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
       }
-      .animate-pulse {
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+      50% {
+        opacity: .5;
       }
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: .5; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
