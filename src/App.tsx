@@ -630,7 +630,7 @@ export default function App() {
 
               {/* Unlock Bonus Impact Button */}
               <div className="space-y-2 relative">
-                <button className="relative w-full px-4 py-3.5 rounded-xl bg-amber-600 text-white font-bold flex items-center justify-center gap-2 shadow-evergreen-xl hover:shadow-2xl transition-all hover:scale-105 pulse-three">
+                <button className="relative w-full px-4 py-3.5 rounded-xl bg-gold-500 dark:bg-gold-600 text-white font-bold flex items-center justify-center gap-2 shadow-evergreen-xl hover:shadow-2xl transition-all hover:scale-105 pulse-three">
                   <span className="text-xl">⭐</span>
                   <span className="text-base">Unlock Bonus Impact</span>
                 </button>
@@ -641,7 +641,7 @@ export default function App() {
               </div>
 
               {/* Share Button */}
-              <button className="w-full px-4 py-3 rounded-xl bg-emerald-700 dark:bg-emerald-800 text-white font-semibold flex items-center justify-center gap-2 shadow-evergreen hover:shadow-evergreen-lg transition-all">
+              <button className="w-full px-4 py-3 rounded-xl bg-money-500 dark:bg-money-600 text-white font-semibold flex items-center justify-center gap-2 shadow-evergreen hover:shadow-evergreen-lg transition-all">
                 <Share2 className="w-4 h-4" />
                 {t('share')}
               </button>
