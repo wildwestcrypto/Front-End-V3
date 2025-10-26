@@ -405,7 +405,7 @@ function CarbonGauge({ produced, offset }: { produced: number; offset: number })
           strokeWidth="12"
           strokeLinecap="round"
           strokeDasharray={`${displayPercentage * 5.53} 553`}
-          className="text-money-500 dark:text-money-400 transition-all duration-1000"
+          className="text-evergreen-700 dark:text-evergreen-600 transition-all duration-1000"
         />
       </svg>
 
@@ -414,7 +414,7 @@ function CarbonGauge({ produced, offset }: { produced: number; offset: number })
         <div className="text-5xl font-bold text-evergreen-700 dark:text-cream-200">
           {displayPercentage.toFixed(0)}%
         </div>
-        <div className="text-xs font-semibold uppercase tracking-wider text-money-600 dark:text-money-400 mt-1">
+        <div className="text-xs font-semibold uppercase tracking-wider text-evergreen-700 dark:text-evergreen-600 mt-1">
           CO₂ Neutral
         </div>
       </div>
@@ -579,19 +579,22 @@ export default function App() {
               </div>
 
               {/* Verification Confirmation Box */}
-              <div className="rounded-xl bg-money-50/80 dark:bg-money-900/20 border border-money-500/30 p-4">
+              <div className={`rounded-xl ${(productData.scanCount || 1) === 1
+                ? 'bg-evergreen-700 dark:bg-evergreen-800 border-evergreen-600'
+                : 'bg-gold-600 dark:bg-gold-700 border-gold-500'
+                } border p-4`}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-start gap-2">
                       <span className="text-lg">{(productData.scanCount || 1) === 1 ? '🎉' : '✅'}</span>
                       <div>
-                        <p className="text-sm font-semibold text-money-700 dark:text-money-300">
+                        <p className="text-sm font-semibold text-white">
                           {(productData.scanCount || 1) === 1
                             ? 'Congratulations, carbon claimed!'
                             : `This credit was already verified at ${new Date().toLocaleString()}`
                           }
                         </p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                        <p className="text-xs text-cream-100 dark:text-cream-200 mt-1">
                           {(productData.scanCount || 1) === 1
                             ? new Date().toLocaleString()
                             : `Scanned ${productData.scanCount} times`
@@ -602,19 +605,13 @@ export default function App() {
                   </div>
 
                   <div className={`flex flex-col items-center justify-center px-3 py-2 rounded-lg border ${(productData.scanCount || 1) === 1
-                    ? 'bg-white/60 dark:bg-slate-800/60 border-money-500/20'
-                    : 'bg-gold-50/60 dark:bg-gold-900/20 border-gold-500/30'
+                    ? 'bg-white dark:bg-cream-100 border-evergreen-600 text-evergreen-700'
+                    : 'bg-white dark:bg-cream-100 border-gold-500 text-gold-700'
                     }`}>
-                    <div className={`text-xs font-semibold uppercase tracking-wide ${(productData.scanCount || 1) === 1
-                      ? 'text-slate-500 dark:text-slate-400'
-                      : 'text-gold-700 dark:text-gold-300'
-                      }`}>
+                    <div className="text-xs font-semibold uppercase tracking-wide">
                       Scans
                     </div>
-                    <div className={`text-2xl font-bold ${(productData.scanCount || 1) === 1
-                      ? 'text-money-600 dark:text-money-400'
-                      : 'text-gold-600 dark:text-gold-400'
-                      }`}>
+                    <div className="text-2xl font-bold">
                       {productData.scanCount || 1}
                     </div>
                   </div>
@@ -630,7 +627,7 @@ export default function App() {
 
               {/* Unlock Bonus Impact Button */}
               <div className="space-y-2 relative">
-              <button className="relative w-full px-4 py-3.5 rounded-xl bg-gold-500 dark:bg-gold-600 hover:bg-gold-600 dark:hover:bg-gold-700 text-white font-bold flex items-center justify-center gap-2 shadow-evergreen-xl hover:shadow-2xl transition-all hover:scale-105 pulse-three">
+                <button className="relative w-full px-4 py-3.5 rounded-xl bg-gold-500 dark:bg-gold-600 hover:bg-gold-600 dark:hover:bg-gold-700 text-white font-bold flex items-center justify-center gap-2 shadow-evergreen-xl hover:shadow-2xl transition-all hover:scale-105 pulse-three">
                   <span className="text-xl">⭐</span>
                   <span className="text-base">Unlock Bonus Impact</span>
                 </button>
@@ -641,7 +638,7 @@ export default function App() {
               </div>
 
               {/* Share Button */}
-              <button className="w-full px-4 py-3 rounded-xl bg-money-500 dark:bg-money-600 hover:bg-money-600 dark:hover:bg-money-700 text-white font-semibold flex items-center justify-center gap-2 shadow-evergreen hover:shadow-evergreen-lg transition-all">
+              <button className="w-full px-4 py-3 rounded-xl bg-transparent border-2 border-evergreen-700/30 dark:border-evergreen-600/30 hover:bg-evergreen-700/10 dark:hover:bg-evergreen-600/10 text-evergreen-700 dark:text-evergreen-300 font-medium flex items-center justify-center gap-2 transition-all">
                 <Share2 className="w-4 h-4" />
                 {t('share')}
               </button>
@@ -654,7 +651,7 @@ export default function App() {
               <h2 className="text-sm font-semibold uppercase tracking-wide text-evergreen-700 dark:text-olive-300">
                 {t('carbon_compensation')}
               </h2>
-              <span className="ml-auto px-2.5 py-0.5 rounded-full text-xs font-bold bg-money-600 dark:bg-money-500 text-white">
+              <span className="ml-auto px-2.5 py-0.5 rounded-full text-xs font-bold bg-gold-500 dark:bg-gold-600 text-white">
                 {t('compensated_full')}
               </span>
             </div>
@@ -688,7 +685,7 @@ export default function App() {
                   {offset}g
                 </span>
               </div>
-              <div className="flex flex-col px-3 py-2 rounded-lg border border-money-500/40 bg-money-500 dark:bg-money-600 text-white min-w-[70px]">
+              <div className="flex flex-col px-3 py-2 rounded-lg border border-gold-500/40 bg-gold-500 dark:bg-gold-600 text-white min-w-[70px]">
                 <span className="uppercase tracking-wide font-medium opacity-70">
                   {t('net')}
                 </span>
