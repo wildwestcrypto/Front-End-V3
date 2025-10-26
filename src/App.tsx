@@ -158,7 +158,7 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
 
 const TRANSLATIONS: Translations = {
   en: {
-    tagline: 'Verification & green traceability',
+    tagline: 'The Evergreen Exchange',
     verified: 'Verified',
     not_verified: 'Not verified',
     product: 'Product',
@@ -532,10 +532,9 @@ export default function App() {
         <header className="bg-transparent">
           <div className="mx-auto max-w-screen-md px-4 py-3.5 flex items-center gap-4">
             <div className="flex items-center gap-2 flex-1">
-              <TreePine className="w-7 h-7 text-evergreen-700 dark:text-olive-400" />
               <div className="flex flex-col">
                 <h1 className="text-base font-bold text-evergreen-700 dark:text-cream-200">
-                  The Evergreen Exchange & MJ
+                  MJ Bakery
                 </h1>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
                   {t('tagline')}
