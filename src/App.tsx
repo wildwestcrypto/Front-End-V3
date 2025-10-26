@@ -337,7 +337,7 @@ function LanguageSwitcher() {
   const currentLang = languages.find(l => l.code === language) || languages[0];
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="bottom-4 right-4 z-50">
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
