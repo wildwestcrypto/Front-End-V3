@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Share2, TreePine, QrCode, Sun, Moon } from 'lucide-react';
 
 // Type definitions
@@ -38,11 +38,7 @@ interface ProductData {
   events: Event[];
 }
 
-interface Translations {
-  [key: string]: {
-    [key: string]: string;
-  };
-}
+
 
 // Add this style tag
 const styles = `
@@ -90,15 +86,15 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
   '550e8400-e29b-41d4-a716': {
     ok: true,
     product: {
-      name: 'i18n:product_demo_name',
-      desc: 'i18n:product_demo_desc',
+      name: "Gourmet Brownies (MJAY's Bakery)",
+      desc: 'Artisan brownies made with fair-trade cocoa, organic ingredients, and lots of love. Certified carbon neutral.',
       image: 'brownies-landscape.png',
     },
     uuid: '550e8400-e29b-41d4-a716',
     lot: 'BATCH-BRW-2409',
     exp: '2026-03-15',
     updated: '2025-09-25T09:05:00Z',
-    origin: 'i18n:origin_mjays_bakery_us',
+    origin: "MJAY's Bakery, Portland, Oregon, USA",
     scanCount: 1,
     carbon: '200 g CO₂ per box.',
     carbon_produced_g: 200,
@@ -152,227 +148,11 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
   },
 };
 
-// ============================================================================
-// TRANSLATIONS
-// ============================================================================
 
-const TRANSLATIONS: Translations = {
-  en: {
-    tagline: 'The Evergreen Exchange',
-    verified: 'Verified',
-    not_verified: 'Not verified',
-    product: 'Product',
-    lot: 'Lot',
-    expiry: 'Expiry',
-    updated: 'Updated',
-    footprint_estimate: 'Estimated footprint:',
-    actions: 'Grow Your Impact',
-    share: 'Share',
-    rate_product: 'Rate the product',
-    thanks_rating: 'Thanks for your rating!',
-    identifier: 'Anti Counterfeit Identifier',
-    timeline: 'Carbon Offset Timeline',
-    carbon_compensation: 'Carbon compensation',
-    produced: 'Produced',
-    offset: 'Offset',
-    net: 'Net',
-    coverage: 'CO₂ NEUTRAL',
-    methodology: 'Methodology:',
-    provider: 'Provider:',
-    audited: 'Audited:',
-    public_claim: 'View public claim',
-    compensated_full: '200% offset',
-    show_more: 'More',
-    show_less: 'Less',
-    carbon_neutral: 'Carbon Neutral',
-    carbon_neutral_headline: 'Net 0 CO₂e',
-    carbon_neutral_short:
-      '2 times the CO₂ emissions produced are fully offset by this purchase, leaving a net positive impact.',
-    carbon_neutral_purchase_line:
-      'Choosing these brownies helps neutralize the same amount of carbon as charging your phone 30 times',
-    carbon_powered_by: 'Powered by The Evergreen Exchange',
-    theme_auto: 'Auto',
-    theme_light: 'Light',
-    theme_dark: 'Dark',
-    verification_pill: 'Verified',
-    copy_id: 'Copy ID',
-    copied_short: 'Copied',
-    timeline_no_events: 'No events',
-    product_demo_name: "Gourmet Brownies (MJAY's Bakery)",
-    product_demo_desc:
-      'Artisan brownies made with fair-trade cocoa, organic ingredients, and lots of love. Certified carbon neutral.',
-    origin_mjays_bakery_us: "MJAY's Bakery, Portland, Oregon, USA",
-    scans_label: 'Scans',
-  },
-  es: {
-    tagline: 'Verificación y trazabilidad verde',
-    verified: 'Verificado',
-    not_verified: 'No verificado',
-    product: 'Producto',
-    lot: 'Lote',
-    expiry: 'Caducidad',
-    updated: 'Actualizado',
-    footprint_estimate: 'Huella estimada:',
-    actions: 'Acciones',
-    share: 'Compartir',
-    rate_product: 'Califica el producto',
-    thanks_rating: '¡Gracias por tu calificación!',
-    identifier: 'Identificador Anti Falsificación',
-    timeline: 'Línea de Tiempo de Compensación de Carbono',
-    carbon_compensation: 'Compensación de carbono',
-    produced: 'Producido',
-    offset: 'Compensado',
-    net: 'Neto',
-    coverage: 'CO₂ NEUTRAL',
-    methodology: 'Metodología:',
-    provider: 'Proveedor:',
-    audited: 'Auditado:',
-    public_claim: 'Ver reclamo público',
-    compensated_full: '200% compensado',
-    show_more: 'Más',
-    show_less: 'Menos',
-    carbon_neutral: 'Carbono Neutral',
-    carbon_neutral_headline: 'Neto 0 CO₂e',
-    carbon_neutral_short:
-      '2 veces las emisiones de CO₂ producidas son completamente compensadas por esta compra, dejando un impacto neto positivo.',
-    carbon_neutral_purchase_line:
-      'Elegir estos brownies ayuda a neutralizar la misma cantidad de carbono que cargar tu teléfono 30 veces',
-    carbon_powered_by: 'Impulsado por The Evergreen Exchange',
-    theme_auto: 'Auto',
-    theme_light: 'Claro',
-    theme_dark: 'Oscuro',
-    verification_pill: 'Verificado',
-    copy_id: 'Copiar ID',
-    copied_short: 'Copiado',
-    timeline_no_events: 'Sin eventos',
-    product_demo_name: "Brownies Gourmet (Panadería de MJAY)",
-    product_demo_desc:
-      'Brownies artesanales hechos con cacao de comercio justo, ingredientes orgánicos y mucho amor. Certificado carbono neutral.',
-    origin_mjays_bakery_us: 'Panadería de MJAY, Portland, Oregon, EE.UU.',
-    scans_label: 'Escaneos',
-  },
-  fr: {
-    tagline: 'Vérification et traçabilité verte',
-    verified: 'Vérifié',
-    not_verified: 'Non vérifié',
-    product: 'Produit',
-    lot: 'Lot',
-    expiry: 'Expiration',
-    updated: 'Mis à jour',
-    footprint_estimate: 'Empreinte estimée:',
-    actions: 'Actions',
-    share: 'Partager',
-    rate_product: 'Évaluer le produit',
-    thanks_rating: 'Merci pour votre évaluation!',
-    identifier: 'Identifiant Anti-Contrefaçon',
-    timeline: 'Chronologie de la Compensation Carbone',
-    carbon_compensation: 'Compensation carbone',
-    produced: 'Produit',
-    offset: 'Compensé',
-    net: 'Net',
-    coverage: 'CO₂ NEUTRE',
-    methodology: 'Méthodologie:',
-    provider: 'Fournisseur:',
-    audited: 'Audité:',
-    public_claim: 'Voir la déclaration publique',
-    compensated_full: '200% compensé',
-    show_more: 'Plus',
-    show_less: 'Moins',
-    carbon_neutral: 'Neutre en Carbone',
-    carbon_neutral_headline: 'Net 0 CO₂e',
-    carbon_neutral_short:
-      '2 fois les émissions de CO₂ produites sont entièrement compensées par cet achat, laissant un impact net positif.',
-    carbon_neutral_purchase_line:
-      'Choisir ces brownies aide à neutraliser la même quantité de carbone que de charger votre téléphone 30 fois',
-    carbon_powered_by: 'Propulsé par The Evergreen Exchange',
-    theme_auto: 'Auto',
-    theme_light: 'Clair',
-    theme_dark: 'Sombre',
-    verification_pill: 'Vérifié',
-    copy_id: 'Copier l\'ID',
-    copied_short: 'Copié',
-    timeline_no_events: 'Aucun événement',
-    product_demo_name: "Brownies Gastronomiques (Boulangerie de MJAY)",
-    product_demo_desc:
-      'Brownies artisanaux faits avec du cacao équitable, des ingrédients biologiques et beaucoup d\'amour. Certifié neutre en carbone.',
-    origin_mjays_bakery_us: 'Boulangerie de MJAY, Portland, Oregon, États-Unis',
-    scans_label: 'Scans',
-  },
-};
 
-// ============================================================================
-// LANGUAGE CONTEXT
-// ============================================================================
 
-type Language = 'en' | 'es' | 'fr';
 
-interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-}
 
-const LanguageContext = createContext<LanguageContextType>({
-  language: 'en',
-  setLanguage: () => { },
-});
-
-function useLanguage() {
-  return useContext(LanguageContext);
-}
-
-// ============================================================================
-// LANGUAGE SWITCHER
-// ============================================================================
-
-function LanguageSwitcher() {
-  const { language, setLanguage } = useLanguage();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const languages = [
-    { code: 'en' as Language, name: 'English', flag: '🇬🇧' },
-    { code: 'es' as Language, name: 'Español', flag: '🇪🇸' },
-    { code: 'fr' as Language, name: 'Français', flag: '🇫🇷' },
-  ];
-
-  const currentLang = languages.find(l => l.code === language) || languages[0];
-
-  return (
-    <div className="bottom-4 right-4 z-50">
-      <div className="relative">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border-2 border-olive-400 dark:border-olive-600 shadow-evergreen hover:shadow-evergreen-lg transition-all"
-        >
-          <span className="text-xl">{currentLang.flag}</span>
-          <span className="text-sm font-semibold text-evergreen-700 dark:text-cream-200">
-            {currentLang.code.toUpperCase()}
-          </span>
-        </button>
-
-        {isOpen && (
-          <div className="absolute bottom-full right-0 mb-2 w-48 rounded-xl bg-white dark:bg-slate-800 border-2 border-olive-400 dark:border-olive-600 shadow-evergreen-lg overflow-hidden">
-            {languages.map(lang => (
-              <button
-                key={lang.code}
-                onClick={() => {
-                  setLanguage(lang.code);
-                  setIsOpen(false);
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${language === lang.code
-                  ? 'bg-olive-100 dark:bg-olive-900/30 text-evergreen-700 dark:text-cream-200'
-                  : 'hover:bg-cream-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
-                  }`}
-              >
-                <span className="text-xl">{lang.flag}</span>
-                <span className="text-sm font-semibold">{lang.name}</span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 // ============================================================================
 // CARBON GAUGE
@@ -487,24 +267,8 @@ function ThemeToggle() {
 // ============================================================================
 
 export default function App() {
-  const [language, setLanguage] = useState<Language>('en');
-
   const uuid = '550e8400-e29b-41d4-a716';
   const productData = MOCK_PRODUCTS[uuid];
-
-  // Translation helper
-  const t = (key: string): string => {
-    return TRANSLATIONS[language]?.[key] || key;
-  };
-
-  // Translate text that might contain i18n: prefix
-  const translateText = (text: string): string => {
-    if (text.startsWith('i18n:')) {
-      const key = text.slice(5);
-      return t(key);
-    }
-    return text;
-  };
 
   if (!productData || !productData.ok) {
     return (
@@ -526,8 +290,7 @@ export default function App() {
   const net = offset - produced;
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
-      <div className="min-h-screen flex flex-col bg-cream-100 dark:bg-slate-950">
+    <div className="min-h-screen flex flex-col bg-cream-100 dark:bg-slate-950">
         {/* Header */}
         <header className="bg-transparent">
           <div className="mx-auto max-w-screen-md px-4 py-3.5 flex items-center gap-4">
@@ -537,7 +300,7 @@ export default function App() {
                   MJ Bakery
                 </h1>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  {t('tagline')}
+                  The Evergreen Exchange
                 </p>
               </div>
             </div>
@@ -570,7 +333,7 @@ export default function App() {
             <div className="rounded-3xl border border-olive-400/20 dark:border-olive-600/20 bg-white/90 dark:bg-white/5 backdrop-blur p-4 space-y-3">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 <QrCode className="w-3 h-3" />
-                {t('identifier')}
+                Anti Counterfeit Identifier
               </div>
 
               <div className="text-sm font-mono break-all text-slate-800 dark:text-slate-200">
@@ -621,7 +384,7 @@ export default function App() {
             {/* Actions Card */}
             <div className="rounded-3xl border border-olive-400/20 dark:border-olive-600/20 bg-white/90 dark:bg-white/5 backdrop-blur p-4 space-y-3">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                {t('actions')}
+                Grow Your Impact
               </h3>
 
               {/* Unlock Bonus Impact Button */}
@@ -639,7 +402,7 @@ export default function App() {
               {/* Share Button */}
               <button className="w-full px-4 py-3 rounded-xl bg-transparent border-2 border-evergreen-700/30 dark:border-evergreen-600/30 hover:bg-evergreen-700/10 dark:hover:bg-evergreen-600/10 text-evergreen-700 dark:text-evergreen-300 font-medium flex items-center justify-center gap-2 transition-all">
                 <Share2 className="w-4 h-4" />
-                {t('share')}
+                Share
               </button>
             </div>
           </div>
@@ -648,10 +411,10 @@ export default function App() {
           <div className="rounded-3xl border border-olive-400/50 dark:border-olive-600/30 bg-gradient-to-br from-white via-olive-50/60 to-cream-100 dark:from-slate-900 dark:via-evergreen-900/15 dark:to-slate-900 p-6 space-y-5">
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-evergreen-700 dark:text-olive-300">
-                {t('carbon_compensation')}
+                Carbon compensation
               </h2>
               <span className="ml-auto px-2.5 py-0.5 rounded-full text-xs font-bold bg-gold-500 dark:bg-gold-600 text-white">
-                {t('compensated_full')}
+                200% offset
               </span>
             </div>
 
@@ -661,24 +424,24 @@ export default function App() {
 
             <div className="rounded-xl ring-1 ring-money-500/30 dark:ring-money-400/30 bg-money-50/85 dark:bg-money-900/25 px-6 py-4 space-y-2">
               <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
-                {t('carbon_neutral_short')}
+                2 times the CO₂ emissions produced are fully offset by this purchase, leaving a net positive impact.
               </p>
               <p className="text-xs leading-snug font-semibold text-money-700 dark:text-money-300 flex items-start gap-1">
                 <span className="w-1.5 h-1.5 mt-1 rounded-full bg-money-500 animate-pulse" />
-                <span>{t('carbon_neutral_purchase_line')}</span>
+                <span>Choosing these brownies helps neutralize the same amount of carbon as charging your phone 30 times</span>
               </p>
             </div>
 
             <div className="flex flex-wrap gap-3 text-xs">
               <div className="flex flex-col px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/60 min-w-[70px]">
                 <span className="uppercase tracking-wide font-medium opacity-70">
-                  {t('produced')}
+                  Produced
                 </span>
                 <span className="text-sm font-semibold">{produced}g</span>
               </div>
               <div className="flex flex-col px-3 py-2 rounded-lg border border-money-400/40 dark:border-money-500/40 bg-money-50 dark:bg-money-500/10 min-w-[70px]">
                 <span className="uppercase tracking-wide font-medium opacity-70 text-money-700 dark:text-money-300">
-                  {t('offset')}
+                  Offset
                 </span>
                 <span className="text-sm font-semibold text-money-700 dark:text-money-300">
                   {offset}g
@@ -686,7 +449,7 @@ export default function App() {
               </div>
               <div className="flex flex-col px-3 py-2 rounded-lg border border-gold-500/40 bg-gold-500 dark:bg-gold-600 text-white min-w-[70px]">
                 <span className="uppercase tracking-wide font-medium opacity-70">
-                  {t('net')}
+                  Net
                 </span>
                 <span className="text-sm font-semibold">{net}g</span>
               </div>
@@ -700,7 +463,7 @@ export default function App() {
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-money-500/10 dark:bg-money-400/10 text-xs font-semibold text-money-700 dark:text-money-200 ring-1 ring-money-500/25 hover:bg-money-500/15 transition-colors"
               >
                 <TreePine className="w-4 h-4" />
-                {t('carbon_powered_by')}
+                Powered by The Evergreen Exchange
               </a>
             </div>
           </div>
@@ -709,7 +472,7 @@ export default function App() {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">
-                {t('timeline')}
+                Carbon Offset Timeline
               </h2>
               <span className="text-xs font-medium text-slate-500">
                 {productData.events?.length || 0}
@@ -737,15 +500,15 @@ export default function App() {
                       <div className="flex-1 rounded-lg border border-olive-400/15 dark:border-olive-500/10 bg-white/70 dark:bg-white/5 backdrop-blur px-3 py-2">
                         <div className="flex flex-wrap items-center gap-2">
                           <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                            {translateText(event.type)}
+                            {event.type}
                           </span>
                           <span className="text-xs font-medium text-slate-500 dark:text-slate-400 ml-auto">
                             {dateStr} {time}
                           </span>
                         </div>
                         <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-                          {translateText(event.where)} •{' '}
-                          {translateText(event.who)}
+                          {event.where} •{' '}
+                          {event.who}
                         </div>
                         {event.tags && event.tags.length > 0 && (
                           <div className="mt-1 flex flex-wrap gap-1.5">
@@ -754,7 +517,7 @@ export default function App() {
                                 key={tagIdx}
                                 className="px-2 py-0.5 rounded-full text-xs font-semibold bg-money-500/10 dark:bg-money-400/10 text-money-700 dark:text-money-300 border border-money-500/20"
                               >
-                                {translateText(tag)}
+                                {tag}
                               </span>
                             ))}
                           </div>
@@ -791,7 +554,7 @@ export default function App() {
               </ol>
             ) : (
               <div className="text-xs italic text-slate-500 dark:text-slate-400">
-                {t('timeline_no_events')}
+                No events
               </div>
             )}
           </div>
@@ -804,9 +567,6 @@ export default function App() {
           </div>
         </footer>
 
-        {/* Language Switcher */}
-        <LanguageSwitcher />
       </div>
-    </LanguageContext.Provider>
   );
 }
