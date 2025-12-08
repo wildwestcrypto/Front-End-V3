@@ -16,6 +16,7 @@ interface Event {
   tags?: string[];
   status: string;
   blockchainUrl?: string;
+  documentUrl?: string;
 }
 
 interface ProductData {
@@ -114,7 +115,8 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
         tags: ['Anchor Constitution'],
         status: 'ok',
         blockchainUrl:
-          'https://mempool.space/tx/3f24b283b6b5026cc48e5f9c58d8d396242cd9d748720c06a0f98f7e205dab50',
+          'https://www.blockchain.com/explorer/transactions/btc/3f24b283b6b5026cc48e5f9c58d8d396242cd9d748720c06a0f98f7e205dab50',
+        documentUrl: 'https://www.evrgn.org/documents/anchor-constitution-example.pdf',
       },
       {
         ts: '2024-07-28T15:00:00Z',
@@ -125,6 +127,7 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
         status: 'ok',
         blockchainUrl:
           'https://ordpool.space/tx/05560ad7dc5bdb0d533a6872d3deb9845c3d081cdb75c248f206bca298b99ebb',
+        documentUrl: 'https://ordinals.com/inscription/08eadb01e43bcfc4a2b4bdd1712e5160666ba592ee3f3462f33710744310941di0',
       },
       {
         ts: '2025-01-31T17:17:15Z',
@@ -134,7 +137,8 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
         tags: ['Writ & Ledger'],
         status: 'ok',
         blockchainUrl:
-          'https://mempool.space/tx/6b89871fd4ac97727fcb4c0fa2f919d9770f4fb1de3f9f152f8b91418c58442f',
+          'https://www.blockchain.com/explorer/transactions/btc/6b89871fd4ac97727fcb4c0fa2f919d9770f4fb1de3f9f152f8b91418c58442f',
+        documentUrl: 'https://www.evrgn.org/documents/writ-example.pdf',  
       },
       {
         ts: "2025-09-15T10:15:00Z",
@@ -142,7 +146,10 @@ const MOCK_PRODUCTS: { [key: string]: ProductData } = {
         where: 'Bitcoin Blockchain',
         who: 'Fractionalization System',
         tags: ['Final Ledger'],
-        status: 'warn',
+        status: 'ok',
+        blockchainUrl:
+          'https://www.blockchain.com/explorer/transactions/btc/6b89871fd4ac97727fcb4c0fa2f919d9770f4fb1de3f9f152f8b91418c58442f',
+        documentUrl: 'https://www.evrgn.org/documents/allocation-example.pdf',
       },
     ],
   },
@@ -230,7 +237,7 @@ function CarbonGauge({ produced, offset }: { produced: number; offset: number })
                 x1="100"
                 y1="110"
                 x2="100"
-                y2="50"
+                y2="65"
                 stroke="currentColor"
                 strokeWidth="3"
                 strokeLinecap="round"
@@ -563,16 +570,29 @@ export default function App() {
                         {event.where} •{' '}
                         {event.who}
                       </div>
-                      {event.tags && event.tags.length > 0 && (
-                        <div className="mt-1 flex flex-wrap gap-1.5">
-                          {event.tags.map((tag, tagIdx) => (
-                            <span
-                              key={tagIdx}
-                              className="px-2 py-0.5 rounded-full text-xs font-semibold bg-money-500/10 dark:bg-money-400/10 text-money-700 dark:text-money-300 border border-money-500/20"
+                      {event.documentUrl && (
+                        <div className="mt-2">
+                          <a
+                            href={event.documentUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gold-500 hover:bg-gold-600 dark:bg-gold-600 dark:hover:bg-gold-700 text-white transition-colors"
+                          >
+                            <svg
+                              className="w-3.5 h-3.5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
                             >
-                              {tag}
-                            </span>
-                          ))}
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                              />
+                            </svg>
+                            View Document
+                          </a>
                         </div>
                       )}
                       {event.blockchainUrl && (
